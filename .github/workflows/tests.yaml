@@ -15,7 +15,7 @@ on:
           - firefox
           - webkit
 
-      parallelTests:
+      parallel:
         description: 'Run tests in parallel'
         required: true
         default: true
@@ -47,11 +47,11 @@ jobs:
 
       - name: Run UI tests manually
         if: github.event_name == 'workflow_dispatch'
-        run: ./mvnw clean verify -DparallelTests=${{ inputs.parallelTests }} -Dbrowser=${{ inputs.browser }} -Dtest="com.example.playwrightdemo.ui.tests.*Tests"
+        run: ./mvnw clean verify -Dparallel=${{ inputs.parallel }} -Dbrowser=${{ inputs.browser }} -Dtest="com.example.playwrightdemo.ui.tests.*Tests"
 
       - name: Run UI tests automatically
         if: github.event_name != 'workflow_dispatch'
-        run: ./mvnw clean verify -DparallelTests=true -Dtest="com.example.playwrightdemo.ui.tests.*Tests"
+        run: ./mvnw clean verify -Dparallel=true -Dtest="com.example.playwrightdemo.ui.tests.*Tests"
 
       - name: Generate Allure report
         if: always()
