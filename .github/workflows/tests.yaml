@@ -17,8 +17,11 @@ jobs:
           java-version: '25'
           cache: maven
 
-      - name: Install Playwright browsers
-        run: sudo ./mvnw exec:java -e -Dexec.classpathScope=test -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps chromium"
+      - name: Install system dependencies for browsers
+        run: sudo ./mvnw exec:java -e -Dexec.classpathScope=test -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install-deps chromium"
+
+      - name: Install Playwright browser
+        run: ./mvnw exec:java -e -Dexec.classpathScope=test -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install chromium"
 
       - name: Run tests
         run: ./mvnw clean verify -DparallelTests=true -Dtest="com.example.playwrightdemo.ui.tests.*Tests"
