@@ -1,4 +1,4 @@
-name: Tests
+name: UI tests
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
           cache: maven
 
       - name: Install Playwright browsers
-        run: ./mvnw exec:java -e -Dexec.classpathScope=test -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps chromium"
+        run: sudo ./mvnw exec:java -e -Dexec.classpathScope=test -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps chromium"
 
       - name: Run tests
-        run: ./mvnw clean verify -DparallelTests=true
+        run: ./mvnw clean verify -DparallelTests=true -Dtest="com.example.playwrightdemo.ui.tests.*Tests"
