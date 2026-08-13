@@ -32,7 +32,7 @@ public abstract class BaseApiTest {
     void setSuiteName() {
         Allure.getLifecycle().updateTestCase(tr ->
                 tr.getLabels().removeIf(l -> "suite".equals(l.getName())));
-        Allure.suite(getClass().getSimpleName()); // например "LoginTests" вместо com.example...LoginTests
+        Allure.suite(getClass().getSimpleName());
     }
 
     @AfterEach

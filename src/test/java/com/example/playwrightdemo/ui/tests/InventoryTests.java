@@ -7,7 +7,6 @@ import com.example.playwrightdemo.ui.pages.InventoryItemPage;
 import com.example.playwrightdemo.ui.pages.InventoryPage;
 import com.example.playwrightdemo.ui.pages.LoginPage;
 import com.example.playwrightdemo.ui.pages.components.InventoryItem;
-import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Assertions;

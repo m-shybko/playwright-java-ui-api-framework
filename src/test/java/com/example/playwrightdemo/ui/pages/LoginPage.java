@@ -1,7 +1,6 @@
 package com.example.playwrightdemo.ui.pages;
 
 import com.example.playwrightdemo.ui.data.TestUser;
-import com.example.playwrightdemo.ui.data.TestUsers;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import io.qameta.allure.Step;
