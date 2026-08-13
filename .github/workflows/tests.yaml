@@ -47,3 +47,15 @@ jobs:
       - name: Run UI tests automatically
         if: github.event_name != 'workflow_dispatch'
         run: ./mvnw clean verify -DparallelTests=true -Dtest="com.example.playwrightdemo.ui.tests.*Tests"
+
+      - name: Generate Allure report
+        if: always()
+        run: ./mvnw allure:report
+
+      - name: Upload Allure report
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: allure-report
+          path: target/site/allure-maven-plugin
+          if-no-files-found: warn
