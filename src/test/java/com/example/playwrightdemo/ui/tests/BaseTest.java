@@ -3,23 +3,21 @@ package com.example.playwrightdemo.ui.tests;
 import com.example.playwrightdemo.config.Config;
 import com.microsoft.playwright.*;
 import io.qameta.allure.Allure;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class BaseTest {
 
-    private static Playwright playwright;
-    private static Browser browser;
-    protected static BrowserContext context;
-    protected static Page page;
+    private Playwright playwright;
+    private Browser browser;
+    protected BrowserContext context;
+    protected Page page;
 
     private static final int slowmo = Config.getInt(Config.SLOWMO_KEY);
     private static final boolean headless = Config.getBoolean(Config.HEADLESS_KEY);
 
     @BeforeAll
-    public static void beforeAll() {
+    public void beforeAll() {
         playwright = Playwright.create();
 
         BrowserType.LaunchOptions options = new BrowserType.LaunchOptions()
@@ -48,11 +46,11 @@ public abstract class BaseTest {
     }
 
     @AfterAll
-    public static void afterAll() {
+    public  void afterAll() {
         playwright.close();
     }
 
-    private static BrowserType getBrowserType() {
+    private  BrowserType getBrowserType() {
         return switch (Config.get(Config.BROWSER_KEY)) {
             case "firefox" -> playwright.firefox();
             case "webkit" -> playwright.webkit();

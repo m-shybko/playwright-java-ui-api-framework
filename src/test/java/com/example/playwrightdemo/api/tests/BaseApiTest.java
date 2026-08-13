@@ -11,14 +11,15 @@ import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class BaseApiTest {
-    private static Playwright playwright;
-    protected static APIRequestContext requestContext;
+    private Playwright playwright;
+    protected APIRequestContext requestContext;
     protected static final ObjectMapper objectMapper = new ObjectMapper();
     protected static final String BASE_URL = Config.get(Config.API_BASE_URL_KEY);
 
     @BeforeAll
-    static void setUp() {
+    void setUp() {
         playwright = Playwright.create();
     }
 
@@ -41,7 +42,7 @@ public abstract class BaseApiTest {
     }
 
     @AfterAll
-    static void tearDown() {
+    void tearDown() {
         playwright.close();
     }
 
