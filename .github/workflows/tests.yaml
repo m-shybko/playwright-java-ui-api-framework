@@ -40,5 +40,10 @@ jobs:
       - name: Install Playwright browser
         run: ./mvnw exec:java -e -Dexec.classpathScope=test -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install ${{ inputs.browser || 'chromium' }}"
 
-      - name: Run tests
-        run: ./mvnw clean verify -DparallelTests=${{ inputs.parallelTests || 'true' }} -Dbrowser=${{ inputs.browser || 'chromium' }} -Dtest="com.example.playwrightdemo.ui.tests.*Tests"
+      - name: Run UI tests manually
+        if: github.event_name == 'workflow_dispatch'
+        run: ./mvnw clean verify -DparallelTests=${{ inputs.parallelTests }} -Dbrowser=${{ inputs.browser }} -Dtest="com.example.playwrightdemo.ui.tests.*Tests"
+
+      - name: Run UI tests automatically
+        if: github.event_name != 'workflow_dispatch'
+        run: ./mvnw clean verify -DparallelTests=true -Dtest="com.example.playwrightdemo.ui.tests.*Tests"
