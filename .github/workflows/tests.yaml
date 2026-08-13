@@ -3,6 +3,23 @@ name: UI tests
 on:
   push:
   pull_request:
+  workflow_dispatch:
+    inputs:
+      browser:
+        description: 'Browser to run tests'
+        required: true
+        default: chromium
+        type: choice
+        options:
+          - chromium
+          - firefox
+          - webkit
+
+      parallelTests:
+        description: 'Run tests in parallel'
+        required: true
+        default: true
+        type: boolean
 
 jobs:
   test:
@@ -21,7 +38,7 @@ jobs:
         run: sudo ./mvnw exec:java -e -Dexec.classpathScope=test -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install-deps"
 
       - name: Install Playwright browser
-        run: ./mvnw exec:java -e -Dexec.classpathScope=test -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install chromium"
+        run: ./mvnw exec:java -e -Dexec.classpathScope=test -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install ${{ inputs.browser || 'chromium' }}"
 
       - name: Run tests
-        run: ./mvnw clean verify -DparallelTests=true -Dtest="com.example.playwrightdemo.ui.tests.*Tests"
+        run: ./mvnw clean verify -DparallelTests=${{ inputs.parallelTests || 'true' }} -Dbrowser=${{ inputs.browser || 'chromium' }} -Dtest="com.example.playwrightdemo.ui.tests.*Tests"
