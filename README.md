@@ -80,7 +80,7 @@ After each run, an Allure report is generated from the test results and publishe
 
 **Live report:** https://m-shybko.github.io/playwright-java-ui-api-framework/
 
-To view a report locally instead:
+You can also generate and view a report locally after running tests:
 
 ```
 ./mvnw allure:report
